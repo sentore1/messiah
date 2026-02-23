@@ -1,23 +1,20 @@
 -- Drop existing tables if they exist
 DROP TABLE IF EXISTS destination_attractions;
-DROP TABLE IF EXISTS destinations;
 
--- Destinations Table
-CREATE TABLE destinations (
-  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  name TEXT NOT NULL,
-  tagline TEXT NOT NULL,
-  image TEXT NOT NULL,
-  icon TEXT DEFAULT 'Mountain',
-  color TEXT DEFAULT 'from-emerald-600 to-emerald-800',
-  display_order INTEGER DEFAULT 0,
-  active BOOLEAN DEFAULT true,
-  created_at TIMESTAMPTZ DEFAULT NOW(),
-  updated_at TIMESTAMPTZ DEFAULT NOW()
-);
+-- Add missing columns to destinations table
+ALTER TABLE destinations ADD COLUMN IF NOT EXISTS slug TEXT;
+ALTER TABLE destinations ADD COLUMN IF NOT EXISTS icon TEXT DEFAULT 'Mountain';
+ALTER TABLE destinations ADD COLUMN IF NOT EXISTS color TEXT DEFAULT 'from-emerald-600 to-emerald-800';
+ALTER TABLE destinations ADD COLUMN IF NOT EXISTS display_order INTEGER DEFAULT 0;
+ALTER TABLE destinations ADD COLUMN IF NOT EXISTS updated_at TIMESTAMPTZ DEFAULT NOW();
 
--- Destination Attractions
-CREATE TABLE destination_attractions (
+-- Add slug values if missing
+UPDATE destinations SET slug = LOWER(name) WHERE slug IS NULL;
+
+-- Make slug unique
+ALTER TABLE destinations ADD CONSTRAINT destinations_slug_key UNIQUE (slug);
+
+CREATE TABLE IF NOT EXISTS destination_attractions (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   destination_id UUID REFERENCES destinations(id) ON DELETE CASCADE,
   name TEXT NOT NULL,
@@ -25,13 +22,12 @@ CREATE TABLE destination_attractions (
   created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
--- Insert default destinations
-INSERT INTO destinations (name, tagline, image, icon, color, display_order) VALUES
-('Rwanda', 'Land of a Thousand Hills', 'https://images.unsplash.com/photo-1580060839134-75a5edca2e99?w=800&q=80', 'Mountain', 'from-emerald-600 to-emerald-800', 1),
-('Uganda', 'Pearl of Africa', 'https://images.unsplash.com/photo-1619451683160-8d896d0b95b6?w=800&q=80', 'TreePine', 'from-green-600 to-green-800', 2),
-('Kenya', 'Magical Kenya', 'https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=800&q=80', 'Sun', 'from-amber-600 to-amber-800', 3),
-('Tanzania', 'The Soul of Africa', 'https://images.unsplash.com/photo-1516426122078-c23e76319801?w=800&q=80', 'Bird', 'from-orange-600 to-orange-800', 4),
-('Burundi', 'Heart of Africa', 'https://images.unsplash.com/photo-1504598318550-17eba1008a68?w=800&q=80', 'Waves', 'from-teal-600 to-teal-800', 5);
+-- Update existing destinations with new fields
+UPDATE destinations SET icon = 'Mountain', color = 'from-emerald-600 to-emerald-800', display_order = 1 WHERE slug = 'rwanda';
+UPDATE destinations SET icon = 'TreePine', color = 'from-green-600 to-green-800', display_order = 2 WHERE slug = 'uganda';
+UPDATE destinations SET icon = 'Sun', color = 'from-amber-600 to-amber-800', display_order = 3 WHERE slug = 'kenya';
+UPDATE destinations SET icon = 'Bird', color = 'from-orange-600 to-orange-800', display_order = 4 WHERE slug = 'tanzania';
+UPDATE destinations SET icon = 'Waves', color = 'from-teal-600 to-teal-800', display_order = 5 WHERE slug = 'burundi';
 
 -- Insert attractions for Rwanda
 INSERT INTO destination_attractions (destination_id, name, display_order)

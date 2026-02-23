@@ -45,16 +45,16 @@ export default async function CountryNavigator() {
             Destinations
           </span>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-[hsl(150,20%,10%)] mb-4">
-            Five Countries, One Epic Journey
+            Four Countries, One Epic Journey
           </h2>
           <p className="text-gray-600 max-w-2xl mx-auto text-lg">
-            Explore the diverse landscapes and wildlife of East Africa across five
+            Explore the diverse landscapes and wildlife of East Africa across four
             extraordinary destinations
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 lg:gap-3">
-          {countries.map((country, index) => (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 lg:gap-3 items-start auto-rows-fr">
+          {countries.slice(0, 5).map((country, index) => (
             <CountryCard key={country.name} country={country} index={index} />
           ))}
         </div>

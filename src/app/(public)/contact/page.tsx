@@ -114,49 +114,27 @@ export default function ContactPage() {
             <div className="lg:col-span-2 space-y-8">
               <div>
                 <h2 className="text-2xl font-bold text-[hsl(150,20%,10%)] mb-6">
-                  Our Offices
+                  Our Office
                 </h2>
-                <div className="space-y-6">
-                  {[
-                    {
-                      city: "Kigali, Rwanda",
-                      address: "KG 123 St, Kimihurura, Kigali",
-                      phone: "+250 123 456 789",
-                      label: "Headquarters",
-                    },
-                    {
-                      city: "Kampala, Uganda",
-                      address: "Plot 45, Kampala Road",
-                      phone: "+256 789 012 345",
-                      label: "Uganda Office",
-                    },
-                    {
-                      city: "Nairobi, Kenya",
-                      address: "Westlands, Muthangari Drive",
-                      phone: "+254 712 345 678",
-                      label: "Kenya Office",
-                    },
-                  ].map((office) => (
-                    <div
-                      key={office.city}
-                      className="p-5 bg-[hsl(40,20%,97%)] rounded-xl"
-                    >
-                      <div className="text-xs font-medium text-[hsl(152,45%,25%)] uppercase tracking-wider mb-2">
-                        {office.label}
-                      </div>
-                      <div className="font-semibold text-[hsl(150,20%,10%)] mb-2">
-                        {office.city}
-                      </div>
-                      <div className="flex items-center gap-2 text-sm text-gray-500 mb-1">
-                        <MapPin className="w-4 h-4" />
-                        {office.address}
-                      </div>
-                      <div className="flex items-center gap-2 text-sm text-gray-500">
-                        <Phone className="w-4 h-4" />
-                        {office.phone}
-                      </div>
-                    </div>
-                  ))}
+                <div className="p-5 bg-[hsl(40,20%,97%)] rounded-xl">
+                  <div className="text-xs font-medium text-[hsl(152,45%,25%)] uppercase tracking-wider mb-2">
+                    Headquarters
+                  </div>
+                  <div className="font-semibold text-[hsl(150,20%,10%)] mb-3">
+                    Kigali, Rwanda
+                  </div>
+                  <div className="flex items-center gap-2 text-sm text-gray-500 mb-2">
+                    <MapPin className="w-4 h-4" />
+                    KG 548 St, Kigali, Rwanda
+                  </div>
+                  <div className="flex items-center gap-2 text-sm text-gray-500 mb-2">
+                    <Phone className="w-4 h-4" />
+                    +250 787 754 606
+                  </div>
+                  <div className="flex items-center gap-2 text-sm text-gray-500">
+                    <Mail className="w-4 h-4" />
+                    info@messiahsafari.com
+                  </div>
                 </div>
               </div>
 

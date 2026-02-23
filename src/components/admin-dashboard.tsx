@@ -73,6 +73,7 @@ export default function AdminDashboard({
   const [settings, setSettings] = useState<any>(null);
   const [destinations, setDestinations] = useState<any[]>([]);
   const [experiences, setExperiences] = useState<any[]>([]);
+  const [heroImages, setHeroImages] = useState<any[]>([]);
   const [editingSettings, setEditingSettings] = useState(false);
   const [uploading, setUploading] = useState(false);
 
@@ -101,14 +102,16 @@ export default function AdminDashboard({
 
   const fetchCMSData = async () => {
     const supabase = createClient();
-    const [settingsRes, destRes, expRes] = await Promise.all([
+    const [settingsRes, destRes, expRes, heroRes] = await Promise.all([
       supabase.from("site_settings").select("*").single(),
       supabase.from("destinations").select("*").order("display_order"),
       supabase.from("experience_categories").select("*").order("display_order"),
+      supabase.from("hero_images").select("*").order("display_order"),
     ]);
     setSettings(settingsRes.data);
     setDestinations(destRes.data || []);
     setExperiences(expRes.data || []);
+    setHeroImages(heroRes.data || []);
   };
 
   const handleUpdateSettings = async () => {
@@ -131,6 +134,40 @@ export default function AdminDashboard({
     setUpdatingId(id);
     const supabase = createClient();
     await supabase.from("experience_categories").update({ [field]: value }).eq("id", id);
+    await fetchCMSData();
+    setUpdatingId(null);
+  };
+
+  const handleAddHeroImage = async (file: File) => {
+    setUploading(true);
+    const supabase = createClient();
+    const fileExt = file.name.split(".").pop();
+    const fileName = `hero-${Date.now()}.${fileExt}`;
+    const { data, error } = await supabase.storage.from("images").upload(fileName, file);
+    if (error) {
+      alert("Upload failed: " + error.message);
+      setUploading(false);
+      return;
+    }
+    const { data: { publicUrl } } = supabase.storage.from("images").getPublicUrl(fileName);
+    await supabase.from("hero_images").insert({ image_url: publicUrl, display_order: heroImages.length + 1 });
+    await fetchCMSData();
+    setUploading(false);
+  };
+
+  const handleDeleteHeroImage = async (id: string) => {
+    if (!confirm("Delete this hero image?")) return;
+    setUpdatingId(id);
+    const supabase = createClient();
+    await supabase.from("hero_images").delete().eq("id", id);
+    await fetchCMSData();
+    setUpdatingId(null);
+  };
+
+  const handleToggleHeroImage = async (id: string, active: boolean) => {
+    setUpdatingId(id);
+    const supabase = createClient();
+    await supabase.from("hero_images").update({ active: !active }).eq("id", id);
     await fetchCMSData();
     setUpdatingId(null);
   };
@@ -795,6 +832,62 @@ export default function AdminDashboard({
         {/* CMS Tab */}
         {activeTab === "cms" && (
           <div className="space-y-6">
+            {/* Hero Section */}
+            <div className="bg-white rounded-xl border border-gray-100 shadow-sm">
+              <div className="p-5 border-b border-gray-100 flex items-center justify-between">
+                <h3 className="text-lg font-semibold text-[hsl(150,20%,10%)]">Hero Section Images</h3>
+                <button onClick={fetchCMSData} className="flex items-center gap-2 px-4 py-2 border rounded-lg hover:bg-gray-100">
+                  <RefreshCw className="w-4 h-4" /> Refresh
+                </button>
+              </div>
+              <div className="p-6">
+                <div className="mb-4">
+                  <label className="block text-sm font-medium mb-2">Add New Hero Image</label>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) => e.target.files?.[0] && handleAddHeroImage(e.target.files[0])}
+                    className="w-full px-3 py-2 border rounded-lg"
+                    disabled={uploading}
+                  />
+                  <p className="text-xs text-gray-500 mt-1">Recommended size: 1920x1080px</p>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {heroImages.map((img) => (
+                    <div key={img.id} className="relative group border rounded-lg overflow-hidden">
+                      <img src={img.image_url} alt="Hero" className="w-full h-48 object-cover" />
+                      <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
+                        <button
+                          onClick={() => handleToggleHeroImage(img.id, img.active)}
+                          disabled={updatingId === img.id}
+                          className={`px-3 py-1.5 rounded-lg text-sm font-medium ${img.active ? "bg-yellow-500 text-white" : "bg-green-500 text-white"}`}
+                        >
+                          {updatingId === img.id ? <Loader2 className="w-4 h-4 animate-spin" /> : img.active ? "Hide" : "Show"}
+                        </button>
+                        <button
+                          onClick={() => handleDeleteHeroImage(img.id)}
+                          disabled={updatingId === img.id}
+                          className="px-3 py-1.5 bg-red-500 text-white rounded-lg text-sm font-medium hover:bg-red-600"
+                        >
+                          {updatingId === img.id ? <Loader2 className="w-4 h-4 animate-spin" /> : "Delete"}
+                        </button>
+                      </div>
+                      <div className="absolute top-2 right-2">
+                        <span className={`px-2 py-1 rounded text-xs font-medium ${img.active ? "bg-green-500 text-white" : "bg-gray-500 text-white"}`}>
+                          {img.active ? "Active" : "Hidden"}
+                        </span>
+                      </div>
+                      <div className="absolute bottom-2 left-2">
+                        <span className="px-2 py-1 bg-black/70 text-white rounded text-xs font-medium">
+                          Order: {img.display_order}
+                        </span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
             {/* Site Settings */}
             <div className="bg-white rounded-xl border border-gray-100 shadow-sm">
               <div className="p-5 border-b border-gray-100 flex items-center justify-between">

@@ -71,7 +71,7 @@ INSERT INTO hero_stats (value, label, display_order) VALUES
 
 -- Insert default testimonials
 INSERT INTO testimonials (name, location, avatar, rating, text, tour, display_order) VALUES
-('Sarah & James Mitchell', 'London, UK', 'https://images.unsplash.com/photo-1494790108755-2616b612b786?w=100&q=80', 5, 'Our 14-day East Africa Grand Safari was truly life-changing. Seeing gorillas in Rwanda and the Great Migration in Tanzania — Messiah Safari made every moment magical.', 'East Africa Grand Safari', 1),
+('Sarah & James Mitchell', 'London, UK', 'https://images.unsplash.com/photo-1494790108755-2616b612b786?w=100&q=80', 5, 'Our 14-day East Africa Grand Safari was truly life-changing. Seeing gorillas in Rwanda and the Great Migration in Tanzania — Messiah Safaris  made every moment magical.', 'East Africa Grand Safari', 1),
 ('Michael Chen', 'San Francisco, USA', 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&q=80', 5, 'The gorilla trekking experience in Volcanoes National Park exceeded all expectations. Our guide was incredibly knowledgeable and the logistics were flawless.', 'Gorilla & Chimp Encounter', 2),
 ('Elena Rodriguez', 'Madrid, Spain', 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&q=80', 5, 'From the Masai Mara to Zanzibar, every detail was thoughtfully planned. The luxury camps were stunning and the wildlife sightings were beyond our wildest dreams.', 'Great Migration Experience', 3),
 ('David Okonkwo', 'Lagos, Nigeria', 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&q=80', 5, 'As an African exploring East Africa, I was impressed by the depth of cultural experiences. The team''s local connections made all the difference.', 'Cultural Immersion Safari', 4);

@@ -9,22 +9,16 @@ export default function CountryCard({ country, index }: { country: any; index: n
 
   return (
     <div
-      className={`relative group cursor-pointer rounded-2xl overflow-hidden transition-all duration-500 ${
-        isActive ? "lg:col-span-2 md:col-span-2" : "lg:col-span-1"
-      }`}
+      className="relative group cursor-pointer rounded-2xl overflow-hidden"
       onMouseEnter={() => setIsActive(true)}
       onMouseLeave={() => setIsActive(false)}
       onClick={() => setIsActive(!isActive)}
     >
-      <div
-        className={`relative ${
-          isActive ? "h-[400px] md:h-[450px]" : "h-[280px] md:h-[450px]"
-        } transition-all duration-500`}
-      >
+      <div className="relative h-[280px] md:h-[450px]">
         <img
           src={country.image}
           alt={country.name}
-          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+          className="w-full h-full object-cover"
         />
         <div
           className={`absolute inset-0 bg-gradient-to-t ${country.color} opacity-60 group-hover:opacity-50 transition-opacity`}

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import {
   Menu,
   X,
@@ -10,7 +10,10 @@ import {
   MapPin,
   ChevronDown,
 } from "lucide-react";
-import { createClient } from "../../supabase/client";
+
+interface SafariNavbarProps {
+  settings?: any;
+}
 
 const destinations = [
   { name: "Rwanda", href: "/destinations/rwanda" },
@@ -28,20 +31,10 @@ const experiences = [
   { name: "Beach Extensions", href: "/tours" },
 ];
 
-export default function SafariNavbar() {
+export default function SafariNavbar({ settings }: SafariNavbarProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [destOpen, setDestOpen] = useState(false);
   const [expOpen, setExpOpen] = useState(false);
-  const [settings, setSettings] = useState<any>(null);
-
-  useEffect(() => {
-    const fetchSettings = async () => {
-      const supabase = createClient();
-      const { data } = await supabase.from("site_settings").select("*").single();
-      setSettings(data);
-    };
-    fetchSettings();
-  }, []);
 
   return (
     <>
@@ -50,23 +43,23 @@ export default function SafariNavbar() {
         <div className="container mx-auto px-4 flex justify-between items-center">
           <div className="flex items-center gap-6">
             <a
-              href={`tel:${settings?.phone || '+250123456789'}`}
+              href="tel:+250787754606"
               className="flex items-center gap-1.5 hover:text-white transition-colors"
             >
               <Phone className="w-3.5 h-3.5" />
-              {settings?.phone || '+250 123 456 789'}
+              +250 787 754 606
             </a>
             <a
-              href={`mailto:${settings?.email || 'info@messiahsafari.com'}`}
+              href="mailto:info@messiahsafari.com"
               className="flex items-center gap-1.5 hover:text-white transition-colors"
             >
               <Mail className="w-3.5 h-3.5" />
-              {settings?.email || 'info@messiahsafari.com'}
+              info@messiahsafari.com
             </a>
           </div>
           <div className="flex items-center gap-1.5">
             <MapPin className="w-3.5 h-3.5" />
-            {settings?.address || 'Kigali, Rwanda | Kampala, Uganda | Nairobi, Kenya'}
+            KG 548 St, Kigali, Rwanda
           </div>
         </div>
       </div>

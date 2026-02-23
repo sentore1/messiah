@@ -44,10 +44,10 @@ export default function AboutPage() {
                 Who We Are
               </span>
               <h2 className="text-3xl md:text-4xl font-bold text-[hsl(150,20%,10%)] mb-6">
-                Messiah Safari & Tours
+                Messiah Safaris  & Tours
               </h2>
               <p className="text-gray-600 text-lg leading-relaxed mb-6">
-                Founded in Kigali, Rwanda, Messiah Safari & Tours has grown from a
+                Founded in Kigali, Rwanda, Messiah Safaris  & Tours has grown from a
                 small local operator to one of East Africa&apos;s most trusted names in
                 premium safari experiences. We specialize in multi-country
                 itineraries that showcase the incredible diversity of Rwanda,
@@ -160,48 +160,6 @@ export default function AboutPage() {
             <h2 className="text-3xl md:text-4xl font-bold text-[hsl(150,20%,10%)] mb-4">
               Meet the Experts
             </h2>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[
-              {
-                name: "Emmanuel Nkurunziza",
-                role: "Founder & Lead Guide",
-                image:
-                  "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80",
-                bio: "15+ years guiding safaris across all five East African countries",
-              },
-              {
-                name: "Grace Uwimana",
-                role: "Head of Operations",
-                image:
-                  "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&q=80",
-                bio: "Expert in crafting seamless multi-country itineraries",
-              },
-              {
-                name: "Joseph Kamau",
-                role: "Wildlife Expert",
-                image:
-                  "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&q=80",
-                bio: "Certified primatologist and Big Five tracking specialist",
-              },
-            ].map((member, i) => (
-              <div key={i} className="text-center group">
-                <div className="relative w-48 h-48 mx-auto mb-6 overflow-hidden rounded-2xl">
-                  <img
-                    src={member.image}
-                    alt={member.name}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                </div>
-                <h3 className="text-xl font-bold text-[hsl(150,20%,10%)] mb-1">
-                  {member.name}
-                </h3>
-                <div className="text-[hsl(152,45%,25%)] text-sm font-medium mb-2">
-                  {member.role}
-                </div>
-                <p className="text-gray-500 text-sm">{member.bio}</p>
-              </div>
-            ))}
           </div>
         </div>
       </section>

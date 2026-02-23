@@ -112,7 +112,7 @@ export default function SafariFooter() {
                 className="flex items-center gap-3 text-white/60 hover:text-[hsl(45,80%,55%)] transition-colors text-sm"
               >
                 <Phone className="w-4 h-4" />
-                {settings?.phone || '+250 123 456 789'}
+                {settings?.phone || '+250 787 754 606'}
               </a>
               <a
                 href={`mailto:${settings?.email || 'info@messiahsafari.com'}`}
@@ -123,7 +123,7 @@ export default function SafariFooter() {
               </a>
               <div className="flex items-center gap-3 text-white/60 text-sm">
                 <MapPin className="w-4 h-4 flex-shrink-0" />
-                {settings?.address || 'KG 123 St, Kigali, Rwanda'}
+                {settings?.address || 'KG 548 St, Kigali, Rwanda'}
               </div>
             </div>
           </div>

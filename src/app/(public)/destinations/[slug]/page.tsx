@@ -34,6 +34,15 @@ export default async function DestinationDetailPage({
 
   const d = destination as Destination;
 
+  // Fetch attractions for this destination
+  const { data: attractionsData } = await supabase
+    .from("destination_attractions")
+    .select("name")
+    .eq("destination_id", d.id)
+    .order("display_order");
+
+  const attractions = attractionsData?.map(a => a.name) || d.attractions || [];
+
   // Fetch tours for this destination
   const { data: tours } = await supabase
     .from("tours")
@@ -117,9 +126,10 @@ export default async function DestinationDetailPage({
         <div className="container mx-auto px-4">
           <div className="grid lg:grid-cols-3 gap-12">
             <div className="lg:col-span-2">
-              <h2 className="text-3xl font-bold text-[hsl(150,20%,10%)] mb-6">
+              <h2 className="text-3xl font-bold text-[hsl(150,20%,10%)] mb-2">
                 About {d.name}
               </h2>
+              <p className="text-[hsl(152,45%,25%)] text-lg mb-6">{d.tagline}</p>
               <p className="text-gray-600 leading-relaxed text-lg">
                 {d.description}
               </p>
@@ -129,7 +139,7 @@ export default async function DestinationDetailPage({
                 Top Attractions
               </h3>
               <div className="space-y-3">
-                {d.attractions.map((a) => (
+                {attractions.map((a) => (
                   <div
                     key={a}
                     className="flex items-center gap-3 p-3 bg-[hsl(40,20%,97%)] rounded-xl"

@@ -8,38 +8,55 @@ import InquiryForm from "@/components/inquiry-form";
 import SafariFooter from "@/components/safari-footer";
 import { createClient } from "../../supabase/server";
 
+export const revalidate = 60;
+
 export default async function Home() {
   const supabase = await createClient();
 
-  const [
-    { data: heroContent },
-    { data: heroStats },
-    { data: heroImages },
-    { data: tours },
-    { data: testimonials },
-    { data: trustStats },
-    { data: partners },
-  ] = await Promise.all([
-    supabase.from("hero_content").select("*").eq("active", true).single(),
-    supabase.from("hero_stats").select("*").eq("active", true).order("display_order"),
-    supabase.from("hero_images").select("*").eq("active", true).order("display_order"),
-    supabase.from("tours").select("*").eq("active", true).order("created_at", { ascending: false }),
-    supabase.from("testimonials").select("*").eq("active", true).order("display_order"),
-    supabase.from("trust_stats").select("*").eq("active", true).order("display_order"),
-    supabase.from("partners").select("*").eq("active", true).order("display_order"),
-  ]);
+  let heroContent = null;
+  let heroStats = [];
+  let heroImages = [];
+  let tours = [];
+  let testimonials = [];
+  let trustStats = [];
+  let partners = [];
+  let settings = null;
+
+  try {
+    const results = await Promise.all([
+      supabase.from("hero_content").select("*").eq("active", true).single(),
+      supabase.from("hero_stats").select("*").eq("active", true).order("display_order"),
+      supabase.from("hero_images").select("*").eq("active", true).order("display_order"),
+      supabase.from("tours").select("*").eq("active", true).order("created_at", { ascending: false }),
+      supabase.from("testimonials").select("*").eq("active", true).order("display_order"),
+      supabase.from("trust_stats").select("*").eq("active", true).order("display_order"),
+      supabase.from("partners").select("*").eq("active", true).order("display_order"),
+      supabase.from("site_settings").select("*").single(),
+    ]);
+
+    heroContent = results[0].data;
+    heroStats = results[1].data || [];
+    heroImages = results[2].data || [];
+    tours = results[3].data || [];
+    testimonials = results[4].data || [];
+    trustStats = results[5].data || [];
+    partners = results[6].data || [];
+    settings = results[7].data;
+  } catch (error) {
+    console.error('Failed to fetch data:', error);
+  }
 
   return (
     <div className="min-h-screen bg-white">
-      <SafariNavbar />
-      <SafariHero content={heroContent} stats={heroStats || []} images={heroImages || []} />
+      <SafariNavbar settings={settings} />
+      <SafariHero content={heroContent} stats={heroStats} images={heroImages} />
       <CountryNavigator />
-      <FeaturedTours tours={tours || []} />
+      <FeaturedTours tours={tours} />
       <ExperienceCategories />
       <TrustIndicators 
-        testimonials={testimonials || []} 
-        stats={trustStats || []} 
-        partners={partners || []} 
+        testimonials={testimonials} 
+        stats={trustStats} 
+        partners={partners} 
       />
       <InquiryForm />
       <SafariFooter />
