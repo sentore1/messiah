@@ -24,7 +24,7 @@ export default async function Navbar() {
           )}
           <div>
             <div className="text-[hsl(152,45%,25%)] font-bold text-lg leading-tight tracking-tight">
-              {settings?.company_name || 'Messiah Safari'}
+              {settings?.company_name || 'Messiah Safaris'}
             </div>
             <div className="text-[hsl(45,80%,50%)] text-[10px] uppercase tracking-[0.2em] font-medium">
               {settings?.company_tagline || '& Tours'}

@@ -51,11 +51,6 @@ export default function TrustIndicators({
             >
               <Quote className="absolute top-6 right-6 w-10 h-10 text-[hsl(45,80%,55%)]/20" />
               <div className="flex items-center gap-4 mb-6">
-                <img
-                  src={t.avatar}
-                  alt={t.name}
-                  className="w-14 h-14 rounded-full object-cover border-2 border-[hsl(45,80%,55%)]/30"
-                />
                 <div>
                   <div className="font-semibold text-[hsl(150,20%,10%)]">
                     {t.name}

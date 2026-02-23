@@ -8,7 +8,7 @@ import InquiryForm from "@/components/inquiry-form";
 import SafariFooter from "@/components/safari-footer";
 import { createClient } from "../../supabase/server";
 
-export const revalidate = 60;
+export const revalidate = 0;
 
 export default async function Home() {
   const supabase = await createClient();
@@ -21,6 +21,7 @@ export default async function Home() {
   let trustStats = [];
   let partners = [];
   let settings = null;
+  let destinations = [];
 
   try {
     const results = await Promise.all([
@@ -32,6 +33,7 @@ export default async function Home() {
       supabase.from("trust_stats").select("*").eq("active", true).order("display_order"),
       supabase.from("partners").select("*").eq("active", true).order("display_order"),
       supabase.from("site_settings").select("*").single(),
+      supabase.from("destinations").select("*").order("display_order"),
     ]);
 
     heroContent = results[0].data;
@@ -42,6 +44,7 @@ export default async function Home() {
     trustStats = results[5].data || [];
     partners = results[6].data || [];
     settings = results[7].data;
+    destinations = results[8].data || [];
   } catch (error) {
     console.error('Failed to fetch data:', error);
   }
@@ -49,7 +52,7 @@ export default async function Home() {
   return (
     <div className="min-h-screen bg-white">
       <SafariNavbar settings={settings} />
-      <SafariHero content={heroContent} stats={heroStats} images={heroImages} />
+      <SafariHero content={heroContent} stats={heroStats} images={heroImages} destinations={destinations} />
       <CountryNavigator />
       <FeaturedTours tours={tours} />
       <ExperienceCategories />

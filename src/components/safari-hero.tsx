@@ -24,7 +24,7 @@ interface HeroImage {
   image_url: string;
 }
 
-export default function SafariHero({ content, stats, images }: { content: HeroContent | null; stats: HeroStat[]; images: HeroImage[] }) {
+export default function SafariHero({ content, stats, images, destinations }: { content: HeroContent | null; stats: HeroStat[]; images: HeroImage[]; destinations?: any[] }) {
   const [showVideo, setShowVideo] = useState(false);
   const [currentImage, setCurrentImage] = useState(0);
 
@@ -40,7 +40,8 @@ export default function SafariHero({ content, stats, images }: { content: HeroCo
   };
 
   const hero = content || defaultContent;
-  const heroImages = images.length > 0 ? images : [{ image_url: hero.background_image }];
+  const destinationImages = destinations?.filter(d => d.image).map(d => ({ image_url: d.image })) || [];
+  const heroImages = images.length > 0 ? images : (destinationImages.length > 0 ? destinationImages : [{ image_url: hero.background_image }]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -62,8 +63,8 @@ export default function SafariHero({ content, stats, images }: { content: HeroCo
             }`}
           />
         ))}
-        <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/30" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/65 to-black/45" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/30" />
       </div>
 
       <div className="relative z-10 container mx-auto px-4 pt-20 pb-32">
@@ -94,15 +95,13 @@ export default function SafariHero({ content, stats, images }: { content: HeroCo
               {hero.cta_primary_text}
               <ArrowRight className="w-5 h-5" />
             </Link>
-            <button
-              onClick={() => setShowVideo(!showVideo)}
+            <Link
+              href="/about"
               className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-white/10 backdrop-blur-sm border border-white/30 text-white rounded-lg hover:bg-white/20 transition-all text-base font-medium"
             >
-              <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
-                <Play className="w-4 h-4 fill-white text-white ml-0.5" />
-              </div>
-              {hero.cta_secondary_text}
-            </button>
+              Learn More About Us
+              <ArrowRight className="w-5 h-5" />
+            </Link>
           </div>
 
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 sm:gap-8">

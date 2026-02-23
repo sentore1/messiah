@@ -44,7 +44,7 @@ export default function AboutPage() {
                 Who We Are
               </span>
               <h2 className="text-3xl md:text-4xl font-bold text-[hsl(150,20%,10%)] mb-6">
-                Messiah Safaris  & Tours
+                Messiah Safaris & Tours
               </h2>
               <p className="text-gray-600 text-lg leading-relaxed mb-6">
                 Founded in Kigali, Rwanda, Messiah Safaris  & Tours has grown from a
@@ -150,19 +150,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Team */}
-      <section className="py-16 md:py-24">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <span className="inline-block text-[hsl(45,80%,45%)] text-sm font-semibold uppercase tracking-[0.2em] mb-3">
-              Our Team
-            </span>
-            <h2 className="text-3xl md:text-4xl font-bold text-[hsl(150,20%,10%)] mb-4">
-              Meet the Experts
-            </h2>
-          </div>
-        </div>
-      </section>
+
     </>
   );
 }

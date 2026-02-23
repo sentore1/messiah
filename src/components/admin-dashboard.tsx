@@ -150,9 +150,10 @@ export default function AdminDashboard({
       return;
     }
     const { data: { publicUrl } } = supabase.storage.from("images").getPublicUrl(fileName);
-    await supabase.from("hero_images").insert({ image_url: publicUrl, display_order: heroImages.length + 1 });
+    await supabase.from("hero_images").insert({ image_url: publicUrl, display_order: heroImages.length + 1, active: true });
     await fetchCMSData();
     setUploading(false);
+    window.location.reload();
   };
 
   const handleDeleteHeroImage = async (id: string) => {
