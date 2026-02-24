@@ -37,18 +37,24 @@ const quickLinks = [
   { name: "Contact Us", href: "/contact" },
 ];
 
-export default function SafariFooter() {
+interface SafariFooterProps {
+  settings?: any;
+}
+
+export default function SafariFooter({ settings: propSettings }: SafariFooterProps) {
   const currentYear = new Date().getFullYear();
-  const [settings, setSettings] = useState<any>(null);
+  const [settings, setSettings] = useState<any>(propSettings);
 
   useEffect(() => {
-    const fetchSettings = async () => {
-      const supabase = createClient();
-      const { data } = await supabase.from("site_settings").select("*").single();
-      setSettings(data);
-    };
-    fetchSettings();
-  }, []);
+    if (!propSettings) {
+      const fetchSettings = async () => {
+        const supabase = createClient();
+        const { data } = await supabase.from("site_settings").select("*").single();
+        setSettings(data);
+      };
+      fetchSettings();
+    }
+  }, [propSettings]);
 
   return (
     <footer className="bg-[hsl(150,20%,8%)] text-white">
