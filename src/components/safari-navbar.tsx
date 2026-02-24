@@ -43,23 +43,23 @@ export default function SafariNavbar({ settings }: SafariNavbarProps) {
         <div className="container mx-auto px-4 flex justify-between items-center">
           <div className="flex items-center gap-6">
             <a
-              href="tel:+250787754606"
+              href={`tel:${settings?.phone || '+250787754606'}`}
               className="flex items-center gap-1.5 hover:text-white transition-colors"
             >
               <Phone className="w-3.5 h-3.5" />
-              +250 787 754 606
+              {settings?.phone || '+250 787 754 606'}
             </a>
             <a
-              href="mailto:info@messiahsafari.com"
+              href={`mailto:${settings?.email || 'info@messiahsafari.com'}`}
               className="flex items-center gap-1.5 hover:text-white transition-colors"
             >
               <Mail className="w-3.5 h-3.5" />
-              info@messiahsafari.com
+              {settings?.email || 'info@messiahsafari.com'}
             </a>
           </div>
           <div className="flex items-center gap-1.5">
             <MapPin className="w-3.5 h-3.5" />
-            KG 548 St, Kigali, Rwanda
+            {settings?.address || 'KG 548 St, Kigali, Rwanda'}
           </div>
         </div>
       </div>
