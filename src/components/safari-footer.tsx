@@ -127,6 +127,13 @@ export default function SafariFooter({ settings: propSettings }: SafariFooterPro
                 <Mail className="w-4 h-4" />
                 {settings?.email || 'info@messiahsafaristours.com'}
               </a>
+              <a
+                href={`mailto:${settings?.email || 'messiahsafarisandtours@gmail.com'}`}
+                className="flex items-center gap-3 text-white/60 hover:text-[hsl(45,80%,55%)] transition-colors text-sm"
+              >
+                <Mail className="w-4 h-4" />
+                {settings?.email || 'messiahsafarisandtours@gmail.com'}
+              </a>
               <div className="flex items-center gap-3 text-white/60 text-sm">
                 <MapPin className="w-4 h-4 flex-shrink-0" />
                 {settings?.address || 'KG 548 St, Kigali, Rwanda'}
