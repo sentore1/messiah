@@ -121,11 +121,11 @@ export default function SafariFooter({ settings: propSettings }: SafariFooterPro
                 {settings?.phone || '+250 787 754 606'}
               </a>
               <a
-                href={`mailto:${settings?.email || 'info@messiahsafari.com'}`}
+                href={`mailto:${settings?.email || 'info@messiahsafaristours.com'}`}
                 className="flex items-center gap-3 text-white/60 hover:text-[hsl(45,80%,55%)] transition-colors text-sm"
               >
                 <Mail className="w-4 h-4" />
-                {settings?.email || 'info@messiahsafari.com'}
+                {settings?.email || 'info@messiahsafaristours.com'}
               </a>
               <div className="flex items-center gap-3 text-white/60 text-sm">
                 <MapPin className="w-4 h-4 flex-shrink-0" />

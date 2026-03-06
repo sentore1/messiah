@@ -133,7 +133,8 @@ export default function ContactPage() {
                   </div>
                   <div className="flex items-center gap-2 text-sm text-gray-500">
                     <Mail className="w-4 h-4" />
-                    info@messiahsafari.com
+                    info@messiahsafaristours.com
+                    messiahsafarisandtours@gmail.com
                   </div>
                 </div>
               </div>
@@ -146,7 +147,8 @@ export default function ContactPage() {
                       Email
                     </div>
                     <div className="text-sm text-gray-500">
-                      info@messiahsafari.com
+                      info@messiahsafaristours.com
+                      messiahsafarisandtours@gmail.com
                     </div>
                   </div>
                 </div>

@@ -50,11 +50,11 @@ export default function SafariNavbar({ settings }: SafariNavbarProps) {
               {settings?.phone || '+250 787 754 606'}
             </a>
             <a
-              href={`mailto:${settings?.email || 'info@messiahsafari.com'}`}
+              href={`mailto:${settings?.email || 'info@messiahsafaristours.com'}`}
               className="flex items-center gap-1.5 hover:text-white transition-colors"
             >
               <Mail className="w-3.5 h-3.5" />
-              {settings?.email || 'info@messiahsafari.com'}
+              {settings?.email || 'info@messiahsafaristours.com'}
             </a>
           </div>
           <div className="flex items-center gap-1.5">

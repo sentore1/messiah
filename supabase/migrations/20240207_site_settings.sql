@@ -7,7 +7,7 @@ CREATE TABLE site_settings (
   company_tagline TEXT DEFAULT '& Tours',
   company_description TEXT DEFAULT 'East Africa''s premier safari operator, crafting unforgettable wildlife and cultural experiences across Rwanda, Uganda, Kenya, Tanzania, and Burundi since 2009.',
   phone TEXT DEFAULT '+250 787 754 606',
-  email TEXT DEFAULT 'info@messiahsafari.com',
+  email TEXT DEFAULT 'info@messiahsafaristours.com',
   address TEXT DEFAULT 'KG 548 St, Kigali, Rwanda',
   facebook_url TEXT,
   instagram_url TEXT,
@@ -18,4 +18,4 @@ CREATE TABLE site_settings (
 
 -- Insert default settings
 INSERT INTO site_settings (logo_letter, company_name, company_tagline, company_description, phone, email, address) VALUES
-('M', 'Messiah Safari', '& Tours', 'East Africa''s premier safari operator, crafting unforgettable wildlife and cultural experiences across Rwanda, Uganda, Kenya, Tanzania, and Burundi since 2009.', '+250 787 754 606', 'info@messiahsafari.com', 'KG 548 St, Kigali, Rwanda');
+('M', 'Messiah Safari', '& Tours', 'East Africa''s premier safari operator, crafting unforgettable wildlife and cultural experiences across Rwanda, Uganda, Kenya, Tanzania, and Burundi since 2009.', '+250 787 754 606', 'info@messiahsafaristours.com', 'KG 548 St, Kigali, Rwanda');
